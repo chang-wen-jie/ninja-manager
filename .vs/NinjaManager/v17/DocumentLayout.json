@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C6E77E9C-D8F1-4F87-8B71-BE4FCC799678}|NinjaManager\\NinjaManager.csproj|c:\\users\\s2213353\\source\\repos\\ninja-manager\\ninjamanager\\models\\ninjamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6E77E9C-D8F1-4F87-8B71-BE4FCC799678}|NinjaManager\\NinjaManager.csproj|solutionrelative:ninjamanager\\models\\ninjamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6E77E9C-D8F1-4F87-8B71-BE4FCC799678}|NinjaManager\\NinjaManager.csproj|c:\\users\\s2213353\\source\\repos\\ninja-manager\\ninjamanager\\models\\equipmentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6E77E9C-D8F1-4F87-8B71-BE4FCC799678}|NinjaManager\\NinjaManager.csproj|solutionrelative:ninjamanager\\models\\equipmentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NinjaModel.cs",
+              "DocumentMoniker": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\Models\\NinjaModel.cs",
+              "RelativeDocumentMoniker": "NinjaManager\\Models\\NinjaModel.cs",
+              "ToolTip": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\Models\\NinjaModel.cs",
+              "RelativeToolTip": "NinjaManager\\Models\\NinjaModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:50:53.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EquipmentModel.cs",
+              "DocumentMoniker": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\Models\\EquipmentModel.cs",
+              "RelativeDocumentMoniker": "NinjaManager\\Models\\EquipmentModel.cs",
+              "ToolTip": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\Models\\EquipmentModel.cs",
+              "RelativeToolTip": "NinjaManager\\Models\\EquipmentModel.cs",
+              "ViewState": "AgIAAAQAAACAmZmZmdkhwBsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:50:35.319Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
