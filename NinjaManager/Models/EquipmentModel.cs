@@ -12,7 +12,7 @@ namespace ninja_manager.Models
         Feet,
     }
 
-    public class EquipmentModel
+    public class Equipment
     {
         [Key]
         public int Id { get; set; }
@@ -31,9 +31,9 @@ namespace ninja_manager.Models
         public int Intelligence { get; set; }
         public int Agility { get; set; }
 
-        public virtual ICollection<NinjaModel> Ninjas { get; set; }
+        public virtual ICollection<Ninja> Ninjas { get; set; }
 
-        public EquipmentModel()
+        public Equipment()
         {
             Ninjas = [];
         }

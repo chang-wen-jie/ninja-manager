@@ -2,7 +2,7 @@
 
 namespace ninja_manager.Models
 {
-    public class NinjaModel
+    public class Ninja
     {
         [Key]
         public int Id { get; set; }
@@ -13,7 +13,7 @@ namespace ninja_manager.Models
         [Range(0, int.MaxValue, ErrorMessage = "Gold must be a positive number.")]
         public int Gold { get; set; }
 
-        public virtual ICollection<EquipmentModel> Inventory { get; set; }
+        public virtual ICollection<Equipment> Inventory { get; set; }
 
         public int TotalStrength => CalculateTotalStat("Strength");
         public int TotalIntelligence => CalculateTotalStat("Intelligence");
@@ -45,7 +45,7 @@ namespace ninja_manager.Models
 
         }
 
-        public NinjaModel()
+        public Ninja()
         {
             Inventory = [];
         }
