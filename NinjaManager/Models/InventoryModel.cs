@@ -1,21 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ninja_manager.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NinjaManager.Models
 {
-    public class Inventory
+    public class InventoryModel
     {
+        [Key]
         public int InventoryId { get; set; }
         public int NinjaId { get; set; }
         public int EquipmentId { get; set; }
 
-        // Navigation properties
-        public virtual Ninja Ninja { get; set; }
-        public virtual Equipment Equipment { get; set; }
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-
-        //}
+        public virtual NinjaModel Ninja { get; set; }
+        public virtual EquipmentModel Equipment { get; set; }
     }
 }

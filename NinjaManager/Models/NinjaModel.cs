@@ -1,24 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ninja_manager.Models
+namespace NinjaManager.Models
 {
-    public class Ninja
+    public class NinjaModel
     {
         [Key]
-        public int Id { get; set; }
-
-        [Required]
+        public int NinjaId { get; set; }
         public string Name { get; set; }
-
-        [Range(0, int.MaxValue, ErrorMessage = "Gold must be a positive number.")]
         public int Gold { get; set; }
 
-        public virtual ICollection<Equipment> Inventory { get; set; }
+        public virtual ICollection<EquipmentModel> Inventory { get; set; }
 
         public int TotalStrength => CalculateTotalStat("Strength");
         public int TotalIntelligence => CalculateTotalStat("Intelligence");
         public int TotalAgility => CalculateTotalStat("Agility");
-        public int TotalGearValue => CalculateTotalStat("Gold");
+        public int TotalGearValue => CalculateTotalStat("GoldValue");
 
         private int CalculateTotalStat(string stat)
         {
@@ -36,8 +32,8 @@ namespace ninja_manager.Models
                     case "Agility":
                         total += item.Agility;
                         break;
-                    case "Gold":
-                        total += item.Gold;
+                    case "GoldValue":
+                        total += item.GoldValue;
                         break;
                 }
             }
@@ -45,7 +41,7 @@ namespace ninja_manager.Models
 
         }
 
-        public Ninja()
+        public NinjaModel()
         {
             Inventory = [];
         }
