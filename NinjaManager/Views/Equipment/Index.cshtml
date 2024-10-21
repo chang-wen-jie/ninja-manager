@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<EquipmentModel>
 
 @{
-    ViewData["Title"] = "View Ninjas";
+    ViewData["Title"] = "View Equipment";
 }
 
-<h1>All Ninjas (@Model.Count())</h1>
+<h1>All Equipment (@Model.Count())</h1>
 
 <div>
-    <a asp-action="Create" asp-controller="Ninja" class="btn btn-success mb-3">Create New Ninja</a>
+    <a asp-action="Create" asp-controller="Equipment" class="btn btn-success mb-3">Create New Equipment</a>
 </div>
 
 <table class="table">
@@ -16,6 +16,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Gold Value</th>
+            <th>Category</th>
             <th>Strength</th>
             <th>Intelligence</th>
             <th>Agility</th>
@@ -28,8 +29,7 @@
             <tr>
                 <td colspan="5">No equipment found..</td>
             </tr>
-        }
-        else
+        } else
         {
             foreach (var equipment in Model)
             {
@@ -37,9 +37,12 @@
                     <td>@equipment.EquipmentId</td>
                     <td>@equipment.Name</td>
                     <td>@equipment.GoldValue</td>
+                    <td>@equipment.Category</td>
+                    <td>@equipment.Strength</td>
+                    <td>@equipment.Intelligence</td>
+                    <td>@equipment.Agility</td>
                     <td>
                         <a asp-action="Edit" asp-controller="Equipment" asp-route-id="@equipment.EquipmentId" class="btn btn-primary">Edit</a>
-
                         <form asp-action="Delete" asp-controller="Equipment" method="post" style="display:inline">
                             <input type="hidden" name="id" value="@equipment.EquipmentId" />
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete @equipment.Name?')">Delete</button>

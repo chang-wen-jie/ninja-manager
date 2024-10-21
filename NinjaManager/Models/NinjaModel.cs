@@ -9,7 +9,7 @@ namespace NinjaManager.Models
         public string Name { get; set; }
         public int Gold { get; set; }
 
-        public virtual ICollection<EquipmentModel> Inventory { get; set; }
+        public virtual ICollection<InventoryModel> Inventory { get; set; }
 
         public int TotalStrength => CalculateTotalStat("Strength");
         public int TotalIntelligence => CalculateTotalStat("Intelligence");
@@ -21,19 +21,22 @@ namespace NinjaManager.Models
             var total = 0;
             foreach (var item in Inventory)
             {
+                var equipment = item.Equipment;
+                if (equipment == null) continue;
+
                 switch (stat)
                 {
                     case "Strength":
-                        total += item.Strength;
+                        total += equipment.Strength;
                         break;
                     case "Intelligence":
-                        total += item.Intelligence;
+                        total += equipment.Intelligence;
                         break;
                     case "Agility":
-                        total += item.Agility;
+                        total += equipment.Agility;
                         break;
                     case "GoldValue":
-                        total += item.GoldValue;
+                        total += equipment.GoldValue;
                         break;
                 }
             }
@@ -43,7 +46,7 @@ namespace NinjaManager.Models
 
         public NinjaModel()
         {
-            Inventory = [];
+            Inventory = new List<InventoryModel>();
         }
     }
 }

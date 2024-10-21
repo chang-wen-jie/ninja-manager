@@ -33,7 +33,6 @@ namespace NinjaManager.Controllers
             {
                 var ninja = new NinjaModel()
                 {
-                    NinjaId = ninjaModel.NinjaId,
                     Name = ninjaModel.Name,
                     Gold = ninjaModel.Gold,
                 };

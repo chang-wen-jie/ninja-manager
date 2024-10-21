@@ -19,6 +19,14 @@
         <span asp-validation-for="GoldValue" class="text-danger"></span>
     </div>
 
+    <div class="form-group">
+        <label asp-for="Category" class="control-label"></label>
+        <select asp-for="Category" class="form-control" asp-items="ViewBag.CategoryDropdown">
+            <option value="">Select a category</option>
+        </select>
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
     <div>
         <label asp-for="Strength">Strength</label>
         <input asp-for="Strength" class="form-control" type="number" />
