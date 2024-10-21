@@ -15,7 +15,8 @@ namespace NinjaManager.Controllers
         public IActionResult Index()
         {
             var ninjas = _context.Ninjas.ToList();
-            return View(ninjas);
+
+            return View("Ninjas", ninjas);
         }
     }
 }
