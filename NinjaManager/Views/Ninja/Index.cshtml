@@ -1,0 +1,48 @@
+﻿@model IEnumerable<NinjaModel>
+
+@{
+    ViewData["Title"] = "View Ninjas";
+}
+
+<h1>All Ninjas (@Model.Count())</h1>
+
+<div>
+    <a asp-action="Create" asp-controller="Ninja" class="btn btn-success mb-3">Create New Ninja</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Gold</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && !Model.Any())
+        {
+            <tr>
+                <td colspan="5">No ninjas found..</td>
+            </tr>
+        } else
+        {
+            foreach (var ninja in Model)
+            {
+                <tr>
+                    <td>@ninja.NinjaId</td>
+                    <td>@ninja.Name</td>
+                    <td>@ninja.Gold</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Ninja" asp-route-id="@ninja.NinjaId" class="btn btn-primary">Edit</a>
+
+                        <form asp-action="Delete" asp-controller="Ninja" method="post" style="display:inline">
+                            <input type="hidden" name="id" value="@ninja.NinjaId" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete @ninja.Name?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

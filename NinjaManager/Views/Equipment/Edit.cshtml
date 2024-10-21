@@ -1,0 +1,49 @@
+﻿@model EquipmentModel
+
+@{
+    ViewData["Title"] = "Edit Equipment";
+}
+
+<h1>Edit a Existing Equipment</h1>
+
+<form asp-action="Edit" asp-controller="Equipment" method="post">
+    <input type="hidden" asp-for="EquipmentId" />
+    <div>
+        <label asp-for="EquipmentId">ID</label>
+        <input asp-for="EquipmentId" class="form-control" type="number" readonly />
+        <span asp-validation-for="EquipmentId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="GoldValue">Gold Value</label>
+        <input asp-for="GoldValue" class="form-control" type="number" min="1" />
+        <span asp-validation-for="GoldValue" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Strength">Strength</label>
+        <input asp-for="Strength" class="form-control" type="number" />
+        <span asp-validation-for="Strength" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Intelligence">Intelligence</label>
+        <input asp-for="Intelligence" class="form-control" type="number" />
+        <span asp-validation-for="Intelligence" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Agility">Agility</label>
+        <input asp-for="Agility" class="form-control" type="number" />
+        <span asp-validation-for="Agility" class="text-danger"></span>
+    </div>
+
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

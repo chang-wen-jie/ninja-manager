@@ -1,0 +1,31 @@
+﻿@model NinjaModel
+
+@{
+    ViewData["Title"] = "Edit Ninja";
+}
+
+<h1>Edit a Existing Ninja</h1>
+
+<form asp-action="Edit" asp-controller="Ninja" method="post">
+    <input type="hidden" asp-for="NinjaId" />
+    <div>
+        <label asp-for="NinjaId">ID</label>
+        <input asp-for="NinjaId" class="form-control" type="number" readonly />
+        <span asp-validation-for="NinjaId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Gold">Gold</label>
+        <input asp-for="Gold" class="form-control" type="number" min="0" />
+        <span asp-validation-for="Gold" class="text-danger"></span>
+    </div>
+
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
