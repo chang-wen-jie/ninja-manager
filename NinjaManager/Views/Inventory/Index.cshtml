@@ -5,12 +5,29 @@
 }
 
 <h1>@Model.Name's Inventory</h1>
-<h1>Gold: @Model.Gold</h1>
 
-<h4>Strength: @Model.TotalStrength</h4>
-<h4>Intelligence: @Model.TotalIntelligence</h4>
-<h4>Agility: @Model.TotalAgility</h4>
-<h4>Gear Value: @Model.TotalGearValue</h4>
+<a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@Model.NinjaId" class="btn btn-success">Buy Equipment</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Gold</th>
+            <th>Strength</th>
+            <th>Intelligence</th>
+            <th>Agility</th>
+            <th>Gear Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Gold</td>
+            <td>@Model.TotalStrength</td>
+            <td>@Model.TotalIntelligence</td>
+            <td>@Model.TotalAgility</td>
+            <td>@Model.TotalGearValue Gold</td>
+        </tr>
+    </tbody>
+</table>
 
 <table class="table">
     <thead>
@@ -45,10 +62,12 @@
                     <td>@equipment.Intelligence</td>
                     <td>@equipment.Agility</td>
                     <td>
-                        <form asp-action="Remove" asp-controller="Inventory" method="post" style="display:inline">
+                        <form asp-action="Sell" asp-controller="Inventory" method="post" style="display:inline">
                             <input type="hidden" name="ninjaId" value="@Model.NinjaId" />
                             <input type="hidden" name="equipmentId" value="@equipment.EquipmentId" />
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove @equipment.Name?')">Remove</button>
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Are you sure you want to sell @equipment.Name?')">Sell
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -57,6 +76,7 @@
     </tbody>
 </table>
 
-<div>
-    <a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@Model.NinjaId" class="btn btn-success">Buy Equipment</a>
-</div>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}

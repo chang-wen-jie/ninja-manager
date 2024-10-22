@@ -1,0 +1,63 @@
+﻿@model List<NinjaManager.Models.EquipmentModel>
+
+@{
+    ViewData["Title"] = "Buy Equipment";
+    var ninjaId = ViewBag.NinjaId;
+}
+
+<h1>Buy Equipment</h1>
+
+<a asp-action="Index" asp-controller="Inventory" asp-route-ninjaId="@ninjaId" class="btn btn-primary">Back</a>
+
+@if (!Model.Any())
+{
+    <p>No equipment available to buy.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gold Value</th>
+                <th>Category</th>
+                <th>Strength</th>
+                <th>Intelligence</th>
+                <th>Agility</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var equipment in Model)
+            {
+                <tr>
+                    <td>@equipment.Name</td>
+                    <td>@equipment.GoldValue</td>
+                    <td>@equipment.Category</td>
+                    <td>@equipment.Strength</td>
+                    <td>@equipment.Intelligence</td>
+                    <td>@equipment.Agility</td>
+                    <td>
+                        <form asp-action="Buy" asp-controller="Inventory" method="post" style="display:inline">
+                            <input type="hidden" name="ninjaId" value="@ninjaId" />
+                            <input type="hidden" name="equipmentId" value="@equipment.EquipmentId" />
+                            <button type="submit" class="btn btn-success"
+                                    onclick="return confirm('Are you sure you want to buy @equipment.Name?')">
+                                Buy
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
