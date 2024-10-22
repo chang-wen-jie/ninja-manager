@@ -2,11 +2,15 @@
 
 @{
     ViewData["Title"] = "Manage Inventory";
+    var categories = Enum.GetValues(typeof(EquipmentCategory)).Cast<EquipmentCategory>().ToList();
 }
 
 <h1>@Model.Name's Inventory</h1>
 
-<a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@Model.NinjaId" class="btn btn-success">Buy Equipment</a>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
 
 <table class="table">
     <thead>
@@ -29,12 +33,14 @@
     </tbody>
 </table>
 
+<a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@Model.NinjaId" class="btn btn-success">Buy Equipment</a>
+
 <table class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Gold Value</th>
             <th>Category</th>
+            <th>Equipment Name</th>
+            <th>Gold Value</th>
             <th>Strength</th>
             <th>Intelligence</th>
             <th>Agility</th>
@@ -42,22 +48,16 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Inventory != null && !Model.Inventory.Any())
+        @foreach (var category in categories)
         {
-            <tr>
-                <td colspan="6">No equipment found.</td>
-            </tr>
-        } else
-        {
-            foreach (var item in Model.Inventory)
-            {
-                var equipment = item.Equipment;
-                if (equipment == null) continue;
+            var equipment = Model.Inventory?.FirstOrDefault(i => i.Equipment?.Category == category)?.Equipment;
 
-                <tr>
+            <tr>
+                <th>@category</th>
+                @if (equipment != null)
+                {
                     <td>@equipment.Name</td>
                     <td>@equipment.GoldValue</td>
-                    <td>@equipment.Category</td>
                     <td>@equipment.Strength</td>
                     <td>@equipment.Intelligence</td>
                     <td>@equipment.Agility</td>
@@ -66,17 +66,16 @@
                             <input type="hidden" name="ninjaId" value="@Model.NinjaId" />
                             <input type="hidden" name="equipmentId" value="@equipment.EquipmentId" />
                             <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Are you sure you want to sell @equipment.Name?')">Sell
+                                    onclick="return confirm('Are you sure you want to sell @equipment.Name?')">
+                                Sell
                             </button>
                         </form>
                     </td>
-                </tr>
-            }
+                } else
+                {
+                    <td colspan="6"><em>No equipment in this slot</em></td>
+                }
+            </tr>
         }
     </tbody>
 </table>
-
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}

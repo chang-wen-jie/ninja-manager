@@ -6,9 +6,12 @@
 
 <h1>All Equipment (@Model.Count())</h1>
 
-<div>
-    <a asp-action="Create" asp-controller="Equipment" class="btn btn-success mb-3">Create New Equipment</a>
-</div>
+<a asp-action="Create" asp-controller="Equipment" class="btn btn-success mb-3">Create New Equipment</a>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
 
 <table class="table">
     <thead>
@@ -27,7 +30,7 @@
         @if (Model != null && !Model.Any())
         {
             <tr>
-                <td colspan="5">No equipment found..</td>
+                <td colspan="5">No equipment found</td>
             </tr>
         } else
         {

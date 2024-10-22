@@ -3,31 +3,50 @@
 @{
     ViewData["Title"] = "Buy Equipment";
     var ninjaId = ViewBag.NinjaId;
+    var selectedCategory = ViewBag.SelectedCategory as NinjaManager.Models.EquipmentCategory?;
 }
-
-<h1>Buy Equipment</h1>
 
 <a asp-action="Index" asp-controller="Inventory" asp-route-ninjaId="@ninjaId" class="btn btn-primary">Back</a>
 
-@if (!Model.Any())
+<h1>Buy Equipment</h1>
+
+@if (TempData["ErrorMessage"] != null)
 {
-    <p>No equipment available to buy.</p>
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
-else
+@if (TempData["SuccessMessage"] != null)
 {
-    <table class="table">
-        <thead>
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@ninjaId" class="btn btn-secondary">All</a>
+@foreach (var category in Enum.GetValues(typeof(NinjaManager.Models.EquipmentCategory)))
+{
+    <a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@ninjaId" asp-route-category="@category" class="btn btn-secondary">
+        @category
+    </a>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gold Value</th>
+            <th>Category</th>
+            <th>Strength</th>
+            <th>Intelligence</th>
+            <th>Agility</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && !Model.Any())
+        {
             <tr>
-                <th>Name</th>
-                <th>Gold Value</th>
-                <th>Category</th>
-                <th>Strength</th>
-                <th>Intelligence</th>
-                <th>Agility</th>
-                <th>Actions</th>
+                <td colspan="5">No equipment available</td>
             </tr>
-        </thead>
-        <tbody>
+        } else
+        {
             @foreach (var equipment in Model)
             {
                 <tr>
@@ -49,15 +68,6 @@ else
                     </td>
                 </tr>
             }
-        </tbody>
-    </table>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
+        }
+    </tbody>
+</table>

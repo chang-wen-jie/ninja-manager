@@ -40,6 +40,8 @@ namespace NinjaManager.Controllers
                 _context.Ninjas.Add(ninja);
                 _context.SaveChanges();
 
+                TempData["SuccessMessage"] = $"Successfully created {ninja.Name}!";
+
                 return RedirectToAction("Index");
             } else
             {
@@ -83,6 +85,8 @@ namespace NinjaManager.Controllers
 
                 _context.SaveChanges();
 
+                TempData["SuccessMessage"] = $"Successfully updated {ninja.Name}!";
+
                 return RedirectToAction("Index");
             } else
             {
@@ -104,6 +108,8 @@ namespace NinjaManager.Controllers
 
             _context.Ninjas.Remove(ninja);
             _context.SaveChanges();
+
+            TempData["SuccessMessage"] = $"Successfully removed {ninja.Name}!";
 
             return RedirectToAction("Index");
         }

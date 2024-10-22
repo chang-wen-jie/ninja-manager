@@ -47,6 +47,8 @@ namespace NinjaManager.Controllers
                 _context.Equipment.Add(equipment);
                 _context.SaveChanges();
 
+                TempData["SuccessMessage"] = $"Successfully created {equipment.Name}!";
+
                 return RedirectToAction("Index");
             } else
             {
@@ -102,6 +104,8 @@ namespace NinjaManager.Controllers
 
                 _context.SaveChanges();
 
+                TempData["SuccessMessage"] = $"Successfully updated {equipment.Name}!";
+
                 return RedirectToAction("Index");
             } else
             {
@@ -125,6 +129,8 @@ namespace NinjaManager.Controllers
 
             _context.Equipment.Remove(equipment);
             _context.SaveChanges();
+
+            TempData["SuccessMessage"] = $"Successfully removed {equipment.Name}!";
 
             return RedirectToAction("Index");
         }

@@ -26,7 +26,7 @@ namespace NinjaManager.Controllers
         }
 
         [HttpGet]
-        public IActionResult Buy(int ninjaId)
+        public IActionResult Buy(int ninjaId, EquipmentCategory? category = null)
         {
             var ninja = _context.Ninjas
                 .Include(n => n.Inventory)
@@ -34,12 +34,19 @@ namespace NinjaManager.Controllers
             if (ninja == null) return NotFound();
 
             var ninjaEquipmentIds = ninja.Inventory.Select(i => i.EquipmentId).ToList();
-            var availableEquipment = _context.Equipment
-                .Where(e => !ninjaEquipmentIds
-                .Contains(e.EquipmentId))
+            var equipmentQuery = _context.Equipment.AsQueryable();
+
+            if (category.HasValue)
+            {
+                equipmentQuery = equipmentQuery.Where(e => e.Category == category.Value);
+            }
+
+            var availableEquipment = equipmentQuery
+                .Where(e => !ninjaEquipmentIds.Contains(e.EquipmentId))
                 .ToList();
 
             ViewBag.NinjaId = ninjaId;
+            ViewBag.SelectedCategory = category;
 
             return View(availableEquipment);
         }
