@@ -5,6 +5,8 @@
     var categories = Enum.GetValues(typeof(EquipmentCategory)).Cast<EquipmentCategory>().ToList();
 }
 
+<a asp-action="Index" asp-controller="Ninja" class="btn btn-primary">Back</a>
+
 <h1>@Model.Name's Inventory</h1>
 
 @if (TempData["SuccessMessage"] != null)
@@ -12,70 +14,66 @@
     <div class="alert alert-success">@TempData["SuccessMessage"]</div>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Gold</th>
-            <th>Strength</th>
-            <th>Intelligence</th>
-            <th>Agility</th>
-            <th>Gear Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.Gold</td>
-            <td>@Model.TotalStrength</td>
-            <td>@Model.TotalIntelligence</td>
-            <td>@Model.TotalAgility</td>
-            <td>@Model.TotalGearValue Gold</td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Gold:</strong> @Model.Gold</p>
+                <p><strong>Strength:</strong> @Model.TotalStrength</p>
+                <p><strong>Intelligence:</strong> @Model.TotalIntelligence</p>
+                <p><strong>Agility:</strong> @Model.TotalAgility</p>
+                <p><strong>Gear Value:</strong> @Model.TotalGearValue Gold</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@Model.NinjaId" class="btn btn-success">Buy Equipment</a>
+<div class="d-flex mt-3">
+    <a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@Model.NinjaId" class="btn btn-success me-2">Buy Equipment</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Category</th>
-            <th>Equipment Name</th>
-            <th>Gold Value</th>
-            <th>Strength</th>
-            <th>Intelligence</th>
-            <th>Agility</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var category in categories)
-        {
-            var equipment = Model.Inventory?.FirstOrDefault(i => i.Equipment?.Category == category)?.Equipment;
+    <form asp-action="SellAll" asp-controller="Inventory" method="post">
+        <input type="hidden" name="ninjaId" value="@Model.NinjaId" />
+        <button type="submit" class="btn btn-danger"
+                onclick="return confirm('Are you sure you want to sell all your equipment?')">
+            Sell All Equipment
+        </button>
+    </form>
+</div>
 
-            <tr>
-                <th>@category</th>
-                @if (equipment != null)
-                {
-                    <td>@equipment.Name</td>
-                    <td>@equipment.GoldValue</td>
-                    <td>@equipment.Strength</td>
-                    <td>@equipment.Intelligence</td>
-                    <td>@equipment.Agility</td>
-                    <td>
+
+<div class="row mt-4"> 
+    @foreach (var category in categories)
+    {
+        var equipment = Model.Inventory?.FirstOrDefault(i => i.Equipment?.Category == category)?.Equipment;
+
+        <div class="col-md-3">
+            <div class="card text-center mb-4" style="min-height: 200px;">
+                <div class="card-header">
+                    <strong>@category</strong>
+                </div>
+                <div class="card-body">
+                    @if (equipment == null)
+                    {
+                        <p><em>No equipment in this slot</em></p>
+                    } else
+                    {
+                        <p><strong>@equipment.Name</strong></p>
+                        <p>Gold Value: @equipment.GoldValue</p>
+                        <p>Strength: @equipment.Strength</p>
+                        <p>Intelligence: @equipment.Intelligence</p>
+                        <p>Agility: @equipment.Agility</p>
+
                         <form asp-action="Sell" asp-controller="Inventory" method="post" style="display:inline">
                             <input type="hidden" name="ninjaId" value="@Model.NinjaId" />
                             <input type="hidden" name="equipmentId" value="@equipment.EquipmentId" />
-                            <button type="submit" class="btn btn-danger"
+                            <button type="submit" class="btn btn-danger mt-2"
                                     onclick="return confirm('Are you sure you want to sell @equipment.Name?')">
                                 Sell
                             </button>
                         </form>
-                    </td>
-                } else
-                {
-                    <td colspan="6"><em>No equipment in this slot</em></td>
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

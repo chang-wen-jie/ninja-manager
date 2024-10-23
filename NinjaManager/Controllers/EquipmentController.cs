@@ -127,6 +127,22 @@ namespace NinjaManager.Controllers
             var equipment = _context.Equipment.Find(id);
             if (equipment == null) return NotFound();
 
+            var ninjasWithEquipment = _context.Ninjas
+                .Where(n => n.Inventory.Any(e => e.EquipmentId == id))
+                .ToList();
+
+            foreach (var ninja in ninjasWithEquipment)
+            {
+                ninja.Gold += equipment.GoldValue;
+
+                var inventoryItemToRemove = ninja.Inventory.Where(i => i.EquipmentId == id).ToList();
+                foreach (var item in inventoryItemToRemove)
+                {
+                    ninja.Inventory.Remove(item);
+                }
+            }
+            _context.SaveChanges();
+
             _context.Equipment.Remove(equipment);
             _context.SaveChanges();
 

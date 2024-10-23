@@ -6,6 +6,7 @@ namespace NinjaManager.Models
     {
         [Key]
         public int NinjaId { get; set; }
+
         public string Name { get; set; }
         public int Gold { get; set; }
 

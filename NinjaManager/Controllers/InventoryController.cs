@@ -116,5 +116,25 @@ namespace NinjaManager.Controllers
 
             return RedirectToAction("Index", new { ninjaId });
         }
+
+        [HttpPost]
+        public IActionResult SellAll(int ninjaId)
+        {
+            var ninja = _context.Ninjas
+                .Include(n => n.Inventory)
+                .ThenInclude(i => i.Equipment)
+                .FirstOrDefault(n => n.NinjaId == ninjaId);
+            if (ninja == null) return NotFound();
+
+            var totalGearValue = ninja.TotalGearValue;
+            ninja.Gold += totalGearValue;
+
+            _context.Inventories.RemoveRange(ninja.Inventory);
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = $"Successfully sold all equipment and gained {totalGearValue} gold!";
+
+            return RedirectToAction("Index", new { ninjaId });
+        }
     }
 }
