@@ -4090,9 +4090,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\NinjaManager.csproj",
-      "projectName": "NinjaManager",
-      "projectPath": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\NinjaManager.csproj",
+      "projectUniqueName": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\NinjaManager.Web.csproj",
+      "projectName": "NinjaManager.Web",
+      "projectPath": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\NinjaManager.Web.csproj",
       "packagesPath": "C:\\Users\\s2213353\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\s2213353\\source\\repos\\ninja-manager\\NinjaManager\\obj\\",
       "projectStyle": "PackageReference",
