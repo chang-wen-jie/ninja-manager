@@ -5,7 +5,18 @@
     var categories = Enum.GetValues(typeof(EquipmentCategory)).Cast<EquipmentCategory>().ToList();
 }
 
-<a asp-action="Index" asp-controller="Ninja" class="btn btn-primary">Back</a>
+<div class="d-flex justify-content-between">
+    <a asp-action="Index" asp-controller="Ninja" class="btn btn-primary">Back</a>
+
+    <div>
+        <a asp-action="Edit" asp-controller="Ninja" asp-route-id="@Model.NinjaId" class="btn btn-secondary">Edit</a>
+        <form asp-action="Delete" asp-controller="Ninja" method="post" style="display:inline">
+            <input type="hidden" name="id" value="@Model.NinjaId" />
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete @Model.Name?')">Delete</button>
+        </form>
+    </div>
+</div>
+
 
 <h1>@Model.Name's Inventory</h1>
 
@@ -30,7 +41,6 @@
 
 <div class="d-flex mt-3">
     <a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@Model.NinjaId" class="btn btn-success me-2">Buy Equipment</a>
-
     <form asp-action="SellAll" asp-controller="Inventory" method="post">
         <input type="hidden" name="ninjaId" value="@Model.NinjaId" />
         <button type="submit" class="btn btn-danger"

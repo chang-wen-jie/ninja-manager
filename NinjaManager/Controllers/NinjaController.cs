@@ -87,7 +87,7 @@ namespace NinjaManager.Controllers
 
                 TempData["SuccessMessage"] = $"Successfully updated {ninja.Name}!";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Inventory", new { ninja.NinjaId });
             } else
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);

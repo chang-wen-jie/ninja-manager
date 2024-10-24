@@ -37,13 +37,6 @@
                     <td>@ninja.Name</td>
                     <td>@ninja.Gold</td>
                     <td>
-                        <a asp-action="Edit" asp-controller="Ninja" asp-route-id="@ninja.NinjaId" class="btn btn-primary">Edit</a>
-                        <form asp-action="Delete" asp-controller="Ninja" method="post" style="display:inline">
-                            <input type="hidden" name="id" value="@ninja.NinjaId" />
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete @ninja.Name?')">Delete</button>
-                        </form>
-                    </td>
-                    <td>
                         <a asp-action="Index" asp-controller="Inventory" asp-route-ninjaId="@ninja.NinjaId" class="btn btn-secondary">Manage</a>
                     </td>
                 </tr>
