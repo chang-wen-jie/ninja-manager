@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NinjaManager.Business")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+995921b40719961c78a44656ebd81ebf97efb6d0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9efe8e016b142f63f0e5598fa3bb3507dfe7b5e")]
 [assembly: System.Reflection.AssemblyProductAttribute("NinjaManager.Business")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NinjaManager.Business")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

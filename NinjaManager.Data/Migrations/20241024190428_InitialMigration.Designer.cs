@@ -8,11 +8,11 @@ using NinjaManager.Data;
 
 #nullable disable
 
-namespace NinjaManager.Migrations
+namespace NinjaManager.Data.Migrations
 {
     [DbContext(typeof(NinjaManagerDbContext))]
-    [Migration("20241017164948_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241024190428_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,21 +23,6 @@ namespace NinjaManager.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EquipmentModelNinjaModel", b =>
-                {
-                    b.Property<int>("InventoryEquipmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NinjasNinjaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("InventoryEquipmentId", "NinjasNinjaId");
-
-                    b.HasIndex("NinjasNinjaId");
-
-                    b.ToTable("EquipmentModelNinjaModel");
-                });
 
             modelBuilder.Entity("NinjaManager.Models.EquipmentModel", b =>
                 {
@@ -61,8 +46,7 @@ namespace NinjaManager.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Strength")
                         .HasColumnType("int");
@@ -85,32 +69,32 @@ namespace NinjaManager.Migrations
                         new
                         {
                             EquipmentId = 2,
+                            Agility = 1,
+                            Category = 0,
+                            GoldValue = 50,
+                            Intelligence = 0,
+                            Name = "Steel Helmet",
+                            Strength = 3
+                        },
+                        new
+                        {
+                            EquipmentId = 3,
+                            Agility = 0,
+                            Category = 0,
+                            GoldValue = 100,
+                            Intelligence = 2,
+                            Name = "Golden Crown",
+                            Strength = 5
+                        },
+                        new
+                        {
+                            EquipmentId = 4,
                             Agility = 0,
                             Category = 2,
                             GoldValue = 20,
                             Intelligence = 1,
                             Name = "Jacket",
                             Strength = 2
-                        },
-                        new
-                        {
-                            EquipmentId = 3,
-                            Agility = 1,
-                            Category = 3,
-                            GoldValue = 5,
-                            Intelligence = 0,
-                            Name = "Shuriken",
-                            Strength = 0
-                        },
-                        new
-                        {
-                            EquipmentId = 4,
-                            Agility = 0,
-                            Category = 3,
-                            GoldValue = 8,
-                            Intelligence = 1,
-                            Name = "Kunai",
-                            Strength = 0
                         },
                         new
                         {
@@ -125,6 +109,46 @@ namespace NinjaManager.Migrations
                         new
                         {
                             EquipmentId = 6,
+                            Agility = 1,
+                            Category = 2,
+                            GoldValue = 80,
+                            Intelligence = 0,
+                            Name = "Dragon Armor",
+                            Strength = 8
+                        },
+                        new
+                        {
+                            EquipmentId = 7,
+                            Agility = 1,
+                            Category = 3,
+                            GoldValue = 5,
+                            Intelligence = 0,
+                            Name = "Shuriken",
+                            Strength = 0
+                        },
+                        new
+                        {
+                            EquipmentId = 8,
+                            Agility = 0,
+                            Category = 3,
+                            GoldValue = 8,
+                            Intelligence = 1,
+                            Name = "Kunai",
+                            Strength = 0
+                        },
+                        new
+                        {
+                            EquipmentId = 9,
+                            Agility = 0,
+                            Category = 3,
+                            GoldValue = 100,
+                            Intelligence = 0,
+                            Name = "Blade of Destiny",
+                            Strength = 10
+                        },
+                        new
+                        {
+                            EquipmentId = 10,
                             Agility = 3,
                             Category = 5,
                             GoldValue = 12,
@@ -134,7 +158,27 @@ namespace NinjaManager.Migrations
                         },
                         new
                         {
-                            EquipmentId = 7,
+                            EquipmentId = 11,
+                            Agility = 1,
+                            Category = 5,
+                            GoldValue = 30,
+                            Intelligence = 0,
+                            Name = "Steel Boots",
+                            Strength = 2
+                        },
+                        new
+                        {
+                            EquipmentId = 12,
+                            Agility = 5,
+                            Category = 5,
+                            GoldValue = 60,
+                            Intelligence = 0,
+                            Name = "Boots of Swiftness",
+                            Strength = 1
+                        },
+                        new
+                        {
+                            EquipmentId = 13,
                             Agility = 0,
                             Category = 1,
                             GoldValue = 25,
@@ -144,7 +188,27 @@ namespace NinjaManager.Migrations
                         },
                         new
                         {
-                            EquipmentId = 8,
+                            EquipmentId = 14,
+                            Agility = 1,
+                            Category = 1,
+                            GoldValue = 40,
+                            Intelligence = 1,
+                            Name = "Amulet of Power",
+                            Strength = 2
+                        },
+                        new
+                        {
+                            EquipmentId = 15,
+                            Agility = 2,
+                            Category = 1,
+                            GoldValue = 70,
+                            Intelligence = 5,
+                            Name = "Silver Chain",
+                            Strength = 0
+                        },
+                        new
+                        {
+                            EquipmentId = 16,
                             Agility = 0,
                             Category = 4,
                             GoldValue = 30,
@@ -154,23 +218,23 @@ namespace NinjaManager.Migrations
                         },
                         new
                         {
-                            EquipmentId = 9,
+                            EquipmentId = 17,
                             Agility = 0,
-                            Category = 3,
-                            GoldValue = 50,
-                            Intelligence = 5,
-                            Name = "Scroll of Healing",
+                            Category = 4,
+                            GoldValue = 35,
+                            Intelligence = 4,
+                            Name = "Ring of Intelligence",
                             Strength = 0
                         },
                         new
                         {
-                            EquipmentId = 10,
-                            Agility = 0,
-                            Category = 3,
-                            GoldValue = 100,
-                            Intelligence = 0,
-                            Name = "Blade of Destiny",
-                            Strength = 10
+                            EquipmentId = 18,
+                            Agility = 4,
+                            Category = 4,
+                            GoldValue = 50,
+                            Intelligence = 1,
+                            Name = "Ring of Speed",
+                            Strength = 0
                         });
                 });
 
@@ -195,158 +259,6 @@ namespace NinjaManager.Migrations
                     b.HasIndex("NinjaId");
 
                     b.ToTable("Inventories");
-
-                    b.HasData(
-                        new
-                        {
-                            InventoryId = 1,
-                            EquipmentId = 1,
-                            NinjaId = 1
-                        },
-                        new
-                        {
-                            InventoryId = 2,
-                            EquipmentId = 2,
-                            NinjaId = 1
-                        },
-                        new
-                        {
-                            InventoryId = 3,
-                            EquipmentId = 3,
-                            NinjaId = 1
-                        },
-                        new
-                        {
-                            InventoryId = 4,
-                            EquipmentId = 4,
-                            NinjaId = 1
-                        },
-                        new
-                        {
-                            InventoryId = 5,
-                            EquipmentId = 1,
-                            NinjaId = 2
-                        },
-                        new
-                        {
-                            InventoryId = 6,
-                            EquipmentId = 5,
-                            NinjaId = 2
-                        },
-                        new
-                        {
-                            InventoryId = 7,
-                            EquipmentId = 6,
-                            NinjaId = 2
-                        },
-                        new
-                        {
-                            InventoryId = 8,
-                            EquipmentId = 2,
-                            NinjaId = 3
-                        },
-                        new
-                        {
-                            InventoryId = 9,
-                            EquipmentId = 7,
-                            NinjaId = 3
-                        },
-                        new
-                        {
-                            InventoryId = 10,
-                            EquipmentId = 2,
-                            NinjaId = 4
-                        },
-                        new
-                        {
-                            InventoryId = 11,
-                            EquipmentId = 8,
-                            NinjaId = 4
-                        },
-                        new
-                        {
-                            InventoryId = 12,
-                            EquipmentId = 1,
-                            NinjaId = 5
-                        },
-                        new
-                        {
-                            InventoryId = 13,
-                            EquipmentId = 3,
-                            NinjaId = 5
-                        },
-                        new
-                        {
-                            InventoryId = 14,
-                            EquipmentId = 9,
-                            NinjaId = 5
-                        },
-                        new
-                        {
-                            InventoryId = 15,
-                            EquipmentId = 1,
-                            NinjaId = 6
-                        },
-                        new
-                        {
-                            InventoryId = 16,
-                            EquipmentId = 6,
-                            NinjaId = 6
-                        },
-                        new
-                        {
-                            InventoryId = 17,
-                            EquipmentId = 5,
-                            NinjaId = 6
-                        },
-                        new
-                        {
-                            InventoryId = 18,
-                            EquipmentId = 4,
-                            NinjaId = 7
-                        },
-                        new
-                        {
-                            InventoryId = 19,
-                            EquipmentId = 2,
-                            NinjaId = 7
-                        },
-                        new
-                        {
-                            InventoryId = 20,
-                            EquipmentId = 10,
-                            NinjaId = 8
-                        },
-                        new
-                        {
-                            InventoryId = 21,
-                            EquipmentId = 1,
-                            NinjaId = 9
-                        },
-                        new
-                        {
-                            InventoryId = 22,
-                            EquipmentId = 7,
-                            NinjaId = 9
-                        },
-                        new
-                        {
-                            InventoryId = 23,
-                            EquipmentId = 1,
-                            NinjaId = 10
-                        },
-                        new
-                        {
-                            InventoryId = 24,
-                            EquipmentId = 2,
-                            NinjaId = 10
-                        },
-                        new
-                        {
-                            InventoryId = 25,
-                            EquipmentId = 3,
-                            NinjaId = 10
-                        });
                 });
 
             modelBuilder.Entity("NinjaManager.Models.NinjaModel", b =>
@@ -431,21 +343,6 @@ namespace NinjaManager.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EquipmentModelNinjaModel", b =>
-                {
-                    b.HasOne("NinjaManager.Models.EquipmentModel", null)
-                        .WithMany()
-                        .HasForeignKey("InventoryEquipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NinjaManager.Models.NinjaModel", null)
-                        .WithMany()
-                        .HasForeignKey("NinjasNinjaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("NinjaManager.Models.InventoryModel", b =>
                 {
                     b.HasOne("NinjaManager.Models.EquipmentModel", "Equipment")
@@ -455,7 +352,7 @@ namespace NinjaManager.Migrations
                         .IsRequired();
 
                     b.HasOne("NinjaManager.Models.NinjaModel", "Ninja")
-                        .WithMany()
+                        .WithMany("Inventory")
                         .HasForeignKey("NinjaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -463,6 +360,11 @@ namespace NinjaManager.Migrations
                     b.Navigation("Equipment");
 
                     b.Navigation("Ninja");
+                });
+
+            modelBuilder.Entity("NinjaManager.Models.NinjaModel", b =>
+                {
+                    b.Navigation("Inventory");
                 });
 #pragma warning restore 612, 618
         }

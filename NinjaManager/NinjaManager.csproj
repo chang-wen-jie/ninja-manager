@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\NinjaManager.Business\NinjaManager.Business.csproj" />
+    <ProjectReference Include="..\NinjaManager.Data\NinjaManager.Data.csproj" />
   </ItemGroup>
 
 </Project>

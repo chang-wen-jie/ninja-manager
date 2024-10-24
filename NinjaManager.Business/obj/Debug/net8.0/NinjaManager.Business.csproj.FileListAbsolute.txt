@@ -1,0 +1,15 @@
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\bin\Debug\net8.0\NinjaManager.Business.deps.json
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\bin\Debug\net8.0\NinjaManager.Business.dll
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\bin\Debug\net8.0\NinjaManager.Business.pdb
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.csproj.AssemblyReference.cache
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.AssemblyInfoInputs.cache
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.AssemblyInfo.cs
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.csproj.CoreCompileInputs.cache
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.sourcelink.json
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.dll
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\refint\NinjaManager.Business.dll
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.pdb
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\ref\NinjaManager.Business.dll
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\bin\Debug\net8.0\NinjaManager.Business.runtimeconfig.json
+C:\Users\s2213353\source\repos\ninja-manager\NinjaManager.Business\obj\Debug\net8.0\NinjaManager.Business.genruntimeconfig.cache
