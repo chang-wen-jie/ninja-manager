@@ -1,28 +1,52 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NinjaManager.Data;
-using NinjaManager.Models;
+using NinjaManager.Business.Models;
+using NinjaManager.Data.Context;
+using NinjaManager.Web.ViewModels;
 
-namespace NinjaManager.Controllers
+namespace NinjaManager.Web.Controllers
 {
     public class InventoryController : Controller
     {
         private readonly NinjaManagerDbContext _context;
 
-        public InventoryController(NinjaManagerDbContext context)
-        {
-            _context = context;
-        }
+        public InventoryController(NinjaManagerDbContext context) => _context = context;
 
         public IActionResult Index(int ninjaId)
         {
-            var ninjaEquipment = _context.Ninjas
+            var ninja = _context.Ninjas
                 .Include(n => n.Inventory)
                 .ThenInclude(i => i.Equipment)
                 .FirstOrDefault(n => n.NinjaId == ninjaId);
-            if (ninjaEquipment == null) return NotFound();
+            if (ninja == null) return NotFound();
 
-            return View("Index", ninjaEquipment);
+            var inventoryViewModel = ninja.Inventory.Select(i => new InventoryViewModel
+            {
+                Equipment = new EquipmentViewModel
+                {
+                    EquipmentId = i.Equipment.EquipmentId,
+                    Name = i.Equipment.Name,
+                    GoldValue = i.Equipment.GoldValue,
+                    Category = i.Equipment.Category,
+                    Strength = i.Equipment.Strength,
+                    Intelligence = i.Equipment.Intelligence,
+                    Agility = i.Equipment.Agility,
+                }
+            }).ToList();
+
+            var ninjaViewModel = new NinjaViewModel
+            {
+                NinjaId = ninja.NinjaId,
+                Name = ninja.Name,
+                Gold = ninja.Gold,
+                Inventory = inventoryViewModel,
+                TotalStrength = ninja.TotalStrength,
+                TotalIntelligence = ninja.TotalIntelligence,
+                TotalAgility = ninja.TotalAgility,
+                TotalGearValue = ninja.TotalGearValue,
+            };
+
+            return View("Index", ninjaViewModel);
         }
 
         [HttpGet]
@@ -43,7 +67,16 @@ namespace NinjaManager.Controllers
 
             var availableEquipment = equipmentQuery
                 .Where(e => !ninjaEquipmentIds.Contains(e.EquipmentId))
-                .ToList();
+                .Select(e => new EquipmentViewModel
+                {
+                    EquipmentId = e.EquipmentId,
+                    Name = e.Name,
+                    GoldValue = e.GoldValue,
+                    Category = e.Category,
+                    Strength = e.Strength,
+                    Intelligence = e.Intelligence,
+                    Agility = e.Agility,
+                }).ToList();
 
             ViewBag.NinjaId = ninjaId;
             ViewBag.SelectedCategory = category;
@@ -69,7 +102,7 @@ namespace NinjaManager.Controllers
             {
                 TempData["ErrorMessage"] = $"You already have equipment in the {equipment.Category} category!";
 
-                return RedirectToAction("Buy", new { ninjaId = ninjaId });
+                return RedirectToAction("Buy", new { ninjaId });
             }
 
             if (ninja.Gold >= equipment.GoldValue)
@@ -85,7 +118,9 @@ namespace NinjaManager.Controllers
 
                 TempData["SuccessMessage"] = $"Successfully bought {equipment.Name}!";
 
-            } else {
+            }
+            else
+            {
                 TempData["ErrorMessage"] = $"You lack {equipment.GoldValue - ninja.Gold} gold to purchase this equipment!";
             }
 

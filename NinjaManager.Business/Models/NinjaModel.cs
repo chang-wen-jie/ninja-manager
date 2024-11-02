@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NinjaManager.Models
+namespace NinjaManager.Business.Models
 {
     public class NinjaModel
     {
@@ -9,9 +9,7 @@ namespace NinjaManager.Models
 
         public string Name { get; set; }
         public int Gold { get; set; }
-
-        public virtual ICollection<InventoryModel> Inventory { get; set; }
-
+        public virtual ICollection<InventoryModel> Inventory { get; set; } = new List<InventoryModel>();
         public int TotalStrength => CalculateTotalStat("Strength");
         public int TotalIntelligence => CalculateTotalStat("Intelligence");
         public int TotalAgility => CalculateTotalStat("Agility");
@@ -43,11 +41,6 @@ namespace NinjaManager.Models
             }
             return total;
 
-        }
-
-        public NinjaModel()
-        {
-            Inventory = new List<InventoryModel>();
         }
     }
 }

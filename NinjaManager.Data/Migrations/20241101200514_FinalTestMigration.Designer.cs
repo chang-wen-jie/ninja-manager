@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NinjaManager.Data;
+using NinjaManager.Data.Context;
 
 #nullable disable
 
 namespace NinjaManager.Data.Migrations
 {
     [DbContext(typeof(NinjaManagerDbContext))]
-    [Migration("20241024190428_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20241101200514_FinalTestMigration")]
+    partial class FinalTestMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace NinjaManager.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("NinjaManager.Models.EquipmentModel", b =>
+            modelBuilder.Entity("NinjaManager.Business.Models.EquipmentModel", b =>
                 {
                     b.Property<int>("EquipmentId")
                         .ValueGeneratedOnAdd()
@@ -238,7 +238,7 @@ namespace NinjaManager.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NinjaManager.Models.InventoryModel", b =>
+            modelBuilder.Entity("NinjaManager.Business.Models.InventoryModel", b =>
                 {
                     b.Property<int>("InventoryId")
                         .ValueGeneratedOnAdd()
@@ -261,7 +261,7 @@ namespace NinjaManager.Data.Migrations
                     b.ToTable("Inventories");
                 });
 
-            modelBuilder.Entity("NinjaManager.Models.NinjaModel", b =>
+            modelBuilder.Entity("NinjaManager.Business.Models.NinjaModel", b =>
                 {
                     b.Property<int>("NinjaId")
                         .ValueGeneratedOnAdd()
@@ -343,15 +343,15 @@ namespace NinjaManager.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NinjaManager.Models.InventoryModel", b =>
+            modelBuilder.Entity("NinjaManager.Business.Models.InventoryModel", b =>
                 {
-                    b.HasOne("NinjaManager.Models.EquipmentModel", "Equipment")
+                    b.HasOne("NinjaManager.Business.Models.EquipmentModel", "Equipment")
                         .WithMany()
                         .HasForeignKey("EquipmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NinjaManager.Models.NinjaModel", "Ninja")
+                    b.HasOne("NinjaManager.Business.Models.NinjaModel", "Ninja")
                         .WithMany("Inventory")
                         .HasForeignKey("NinjaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -362,7 +362,7 @@ namespace NinjaManager.Data.Migrations
                     b.Navigation("Ninja");
                 });
 
-            modelBuilder.Entity("NinjaManager.Models.NinjaModel", b =>
+            modelBuilder.Entity("NinjaManager.Business.Models.NinjaModel", b =>
                 {
                     b.Navigation("Inventory");
                 });

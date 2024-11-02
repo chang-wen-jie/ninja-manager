@@ -1,24 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NinjaManager.Data;
-using NinjaManager.Models;
+using NinjaManager.Business.Models;
+using NinjaManager.Data.Context;
+using NinjaManager.Web.ViewModels;
 
-namespace NinjaManager.Controllers
+namespace NinjaManager.Web.Controllers
 {
-    public class EquipmentController : Controller
+    public class EquipmentController(NinjaManagerDbContext context) : Controller
     {
-        private readonly NinjaManagerDbContext _context;
-
-        public EquipmentController(NinjaManagerDbContext context)
-        {
-            _context = context;
-        }
+        private readonly NinjaManagerDbContext _context = context;
 
         public IActionResult Index()
         {
             var equipment = _context.Equipment.ToList();
 
-            return View("Index", equipment);
+            var equipmentViewModels = equipment.Select(e => new EquipmentViewModel
+            {
+                EquipmentId = e.EquipmentId,
+                Name = e.Name,
+                GoldValue = e.GoldValue,
+                Category = e.Category,
+                Strength = e.Strength,
+                Intelligence = e.Intelligence,
+                Agility = e.Agility,
+            }).ToList();
+
+            return View("Index", equipmentViewModels);
         }
 
         [HttpGet]
@@ -30,38 +37,39 @@ namespace NinjaManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(EquipmentModel equipmentModel)
+        public IActionResult Create(EquipmentViewModel equipmentViewModel)
         {
             if (ModelState.IsValid)
             {
-                var equipment = new EquipmentModel()
+                var equipmentModel = new EquipmentModel()
                 {
-                    Name = equipmentModel.Name,
-                    GoldValue = equipmentModel.GoldValue,
-                    Category = equipmentModel.Category,
-                    Strength = equipmentModel.Strength,
-                    Intelligence = equipmentModel.Intelligence,
-                    Agility = equipmentModel.Agility,
+                    Name = equipmentViewModel.Name,
+                    GoldValue = equipmentViewModel.GoldValue,
+                    Category = equipmentViewModel.Category,
+                    Strength = equipmentViewModel.Strength,
+                    Intelligence = equipmentViewModel.Intelligence,
+                    Agility = equipmentViewModel.Agility,
                 };
 
-                _context.Equipment.Add(equipment);
+                _context.Equipment.Add(equipmentModel);
                 _context.SaveChanges();
 
-                TempData["SuccessMessage"] = $"Successfully created {equipment.Name}!";
+                TempData["SuccessMessage"] = $"Successfully created {equipmentModel.Name}!";
 
                 return RedirectToAction("Index");
-            } else
+            }
+            else
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
                 foreach (var error in errors)
                 {
-                    System.Console.WriteLine(error.ErrorMessage);
+                    Console.WriteLine(error.ErrorMessage);
                 }
             }
 
             ViewBag.CategoryDropdown = new SelectList(Enum.GetValues(typeof(EquipmentCategory)));
 
-            return View(equipmentModel);
+            return View(equipmentViewModel);
         }
 
         [HttpGet]
@@ -70,14 +78,14 @@ namespace NinjaManager.Controllers
             var equipment = _context.Equipment.Find(id);
             if (equipment == null) return NotFound();
 
-            var equipmentModel = new EquipmentModel()
+            var equipmentModel = new EquipmentViewModel()
             {
                 EquipmentId = equipment.EquipmentId,
                 Name = equipment.Name,
                 GoldValue = equipment.GoldValue,
                 Category = equipment.Category,
                 Strength = equipment.Strength,
-                Intelligence= equipment.Intelligence,
+                Intelligence = equipment.Intelligence,
                 Agility = equipment.Agility,
             };
 
@@ -87,7 +95,7 @@ namespace NinjaManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EquipmentModel equipmentModel)
+        public IActionResult Edit(EquipmentViewModel equipmentModel)
         {
             if (ModelState.IsValid)
             {
@@ -107,12 +115,13 @@ namespace NinjaManager.Controllers
                 TempData["SuccessMessage"] = $"Successfully updated {equipment.Name}!";
 
                 return RedirectToAction("Index");
-            } else
+            }
+            else
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
                 foreach (var error in errors)
                 {
-                    System.Console.WriteLine(error.ErrorMessage);
+                    Console.WriteLine(error.ErrorMessage);
                 }
 
                 ViewBag.CategoryDropdown = new SelectList(Enum.GetValues(typeof(EquipmentCategory)), equipmentModel.Category);
@@ -122,7 +131,7 @@ namespace NinjaManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete (int id)
+        public IActionResult Delete(int id)
         {
             var equipment = _context.Equipment.Find(id);
             if (equipment == null) return NotFound();

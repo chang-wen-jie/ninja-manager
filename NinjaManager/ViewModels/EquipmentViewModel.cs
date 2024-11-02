@@ -1,22 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NinjaManager.Business.Models;
 
-namespace NinjaManager.Business.Models
+namespace NinjaManager.Web.ViewModels
 {
-    public enum EquipmentCategory
+    public class EquipmentViewModel
     {
-        Head,
-        Necklace,
-        Chest,
-        Hands,
-        Ring,
-        Feet,
-    }
-
-    public class EquipmentModel
-    {
-        [Key]
         public int EquipmentId { get; set; }
-
         public string Name { get; set; }
         public int GoldValue { get; set; }
         public EquipmentCategory Category { get; set; }

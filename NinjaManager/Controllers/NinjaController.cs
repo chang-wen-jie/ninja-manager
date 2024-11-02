@@ -1,23 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NinjaManager.Data;
-using NinjaManager.Models;
+using NinjaManager.Business.Models;
+using NinjaManager.Data.Context;
+using NinjaManager.Web.ViewModels;
 
-namespace NinjaManager.Controllers
+namespace NinjaManager.Web.Controllers
 {
-    public class NinjaController : Controller
+    public class NinjaController(NinjaManagerDbContext context) : Controller
     {
-        private readonly NinjaManagerDbContext _context;
-
-        public NinjaController(NinjaManagerDbContext context)
-        {
-            _context = context;
-        }
+        private readonly NinjaManagerDbContext _context = context;
 
         public IActionResult Index()
         {
             var ninjas = _context.Ninjas.ToList();
 
-            return View("Index", ninjas);
+            var ninjaViewModels = ninjas.Select(n => new NinjaViewModel
+            {
+                NinjaId = n.NinjaId,
+                Name = n.Name,
+                Gold = n.Gold,
+            }).ToList();
+
+            return View("Index", ninjaViewModels);
         }
 
         [HttpGet]
@@ -27,32 +30,33 @@ namespace NinjaManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(NinjaModel ninjaModel)
+        public IActionResult Create(NinjaViewModel ninjaViewModel)
         {
             if (ModelState.IsValid)
             {
-                var ninja = new NinjaModel()
+                var ninjaModel = new NinjaModel()
                 {
-                    Name = ninjaModel.Name,
-                    Gold = ninjaModel.Gold,
+                    Name = ninjaViewModel.Name,
+                    Gold = ninjaViewModel.Gold,
                 };
 
-                _context.Ninjas.Add(ninja);
+                _context.Ninjas.Add(ninjaModel);
                 _context.SaveChanges();
 
-                TempData["SuccessMessage"] = $"Successfully created {ninja.Name}!";
+                TempData["SuccessMessage"] = $"Successfully created {ninjaModel.Name}!";
 
                 return RedirectToAction("Index");
-            } else
+            }
+            else
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
                 foreach (var error in errors)
                 {
-                    System.Console.WriteLine(error.ErrorMessage);
+                    Console.WriteLine(error.ErrorMessage);
                 }
             }
 
-            return View(ninjaModel);
+            return View(ninjaViewModel);
         }
 
         [HttpGet]
@@ -61,43 +65,44 @@ namespace NinjaManager.Controllers
             var ninja = _context.Ninjas.Find(id);
             if (ninja == null) return NotFound();
 
-            var ninjaModel = new NinjaModel()
+            var ninjaViewModel = new NinjaViewModel()
             {
                 NinjaId = ninja.NinjaId,
                 Name = ninja.Name,
                 Gold = ninja.Gold,
             };
 
-            return View(ninjaModel);
+            return View(ninjaViewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(NinjaModel ninjaModel)
+        public IActionResult Edit(NinjaViewModel ninjaViewModel)
         {
             if (ModelState.IsValid)
             {
-                var ninja = _context.Ninjas.Find(ninjaModel.NinjaId);
+                var ninja = _context.Ninjas.Find(ninjaViewModel.NinjaId);
                 if (ninja == null) return NotFound();
 
-                ninja.NinjaId = ninjaModel.NinjaId;
-                ninja.Name = ninjaModel.Name;
-                ninja.Gold = ninjaModel.Gold;
+                ninja.NinjaId = ninjaViewModel.NinjaId;
+                ninja.Name = ninjaViewModel.Name;
+                ninja.Gold = ninjaViewModel.Gold;
 
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = $"Successfully updated {ninja.Name}!";
 
                 return RedirectToAction("Index", "Inventory", new { ninja.NinjaId });
-            } else
+            }
+            else
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
                 foreach (var error in errors)
                 {
-                    System.Console.WriteLine(error.ErrorMessage);
+                    Console.WriteLine(error.ErrorMessage);
                 }
             }
 
-            return View(ninjaModel);
+            return View(ninjaViewModel);
         }
 
         [HttpPost]

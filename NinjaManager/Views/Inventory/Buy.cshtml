@@ -1,9 +1,10 @@
-﻿@model List<NinjaManager.Models.EquipmentModel>
+﻿@model List<NinjaManager.Web.ViewModels.EquipmentViewModel>
 
 @{
     ViewData["Title"] = "Buy Equipment";
+    @using NinjaManager.Business.Models
     var ninjaId = ViewBag.NinjaId;
-    var selectedCategory = ViewBag.SelectedCategory as NinjaManager.Models.EquipmentCategory?;
+    var selectedCategory = ViewBag.SelectedCategory as EquipmentCategory?;
 }
 
 <a asp-action="Index" asp-controller="Inventory" asp-route-ninjaId="@ninjaId" class="btn btn-primary">Back</a>
@@ -20,7 +21,7 @@
 }
 
 <a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@ninjaId" class="btn btn-secondary">All</a>
-@foreach (var category in Enum.GetValues(typeof(NinjaManager.Models.EquipmentCategory)))
+@foreach (var category in Enum.GetValues(typeof(EquipmentCategory)))
 {
     <a asp-action="Buy" asp-controller="Inventory" asp-route-ninjaId="@ninjaId" asp-route-category="@category" class="btn btn-secondary">
         @category

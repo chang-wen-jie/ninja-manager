@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NinjaManager.Models;
+using NinjaManager.Business.Models;
 
-namespace NinjaManager.Data
+namespace NinjaManager.Data.Context
 {
     public class NinjaManagerDbContext : DbContext
     {

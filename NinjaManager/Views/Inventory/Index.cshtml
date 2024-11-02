@@ -1,7 +1,8 @@
-﻿@model NinjaModel
+﻿@model NinjaManager.Web.ViewModels.NinjaViewModel
 
 @{
     ViewData["Title"] = "Manage Inventory";
+    @using NinjaManager.Business.Models
     var categories = Enum.GetValues(typeof(EquipmentCategory)).Cast<EquipmentCategory>().ToList();
 }
 
@@ -44,7 +45,7 @@
     <form asp-action="SellAll" asp-controller="Inventory" method="post">
         <input type="hidden" name="ninjaId" value="@Model.NinjaId" />
         <button type="submit" class="btn btn-danger"
-                onclick="return confirm('Are you sure you want to sell all your equipment?')">
+                onclick="return confirm('Are you sure you want to sell all your equipment? You will receive back your total gear value in gold.')">
             Sell All Equipment
         </button>
     </form>
@@ -54,7 +55,9 @@
 <div class="row mt-4"> 
     @foreach (var category in categories)
     {
-        var equipment = Model.Inventory?.FirstOrDefault(i => i.Equipment?.Category == category)?.Equipment;
+        var equipment = Model.Inventory?
+            .FirstOrDefault(i => i.Equipment.Category == category)?
+            .Equipment;
 
         <div class="col-md-3">
             <div class="card text-center mb-4" style="min-height: 200px;">
@@ -67,8 +70,8 @@
                         <p><em>No equipment in this slot</em></p>
                     } else
                     {
-                        <p><strong>@equipment.Name</strong></p>
-                        <p>Gold Value: @equipment.GoldValue</p>
+                        <p><b>@equipment.Name</b></p>
+                        <p><i>Gold Value: @equipment.GoldValue</i></p>
                         <p>Strength: @equipment.Strength</p>
                         <p>Intelligence: @equipment.Intelligence</p>
                         <p>Agility: @equipment.Agility</p>
@@ -77,7 +80,7 @@
                             <input type="hidden" name="ninjaId" value="@Model.NinjaId" />
                             <input type="hidden" name="equipmentId" value="@equipment.EquipmentId" />
                             <button type="submit" class="btn btn-danger mt-2"
-                                    onclick="return confirm('Are you sure you want to sell @equipment.Name?')">
+                                    onclick="return confirm('Are you sure you want to sell @equipment.Name? You will receive back @equipment.GoldValue gold.')">
                                 Sell
                             </button>
                         </form>

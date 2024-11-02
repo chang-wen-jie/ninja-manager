@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using NinjaManager.Data;
+using NinjaManager.Data.Context;
 
 namespace NinjaManager
 {

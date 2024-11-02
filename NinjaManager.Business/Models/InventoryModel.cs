@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NinjaManager.Models
+namespace NinjaManager.Business.Models
 {
     public class InventoryModel
     {
@@ -9,7 +9,6 @@ namespace NinjaManager.Models
 
         public int NinjaId { get; set; }
         public int EquipmentId { get; set; }
-
         public virtual NinjaModel Ninja { get; set; }
         public virtual EquipmentModel Equipment { get; set; }
     }
